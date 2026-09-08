@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RegisterationWidgesType extends StatelessWidget {
   const RegisterationWidgesType({
@@ -15,8 +16,8 @@ class RegisterationWidgesType extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 54,
-        width: 160,
+        height: 54.h,
+        width: 160.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: Colors.white,
@@ -32,11 +33,11 @@ class RegisterationWidgesType extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(imageLink, height: 18.17, width: 18.17),
-            const SizedBox(width: 12),
+            Image.asset(imageLink, height: 18.17.h, width: 18.17.w),
+            SizedBox(width: 12.w),
             Text(
               title,
-              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
+              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16.sp),
             ),
           ],
         ),

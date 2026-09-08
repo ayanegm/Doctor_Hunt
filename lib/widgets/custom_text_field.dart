@@ -1,5 +1,6 @@
-import 'package:doctor_hunt/constants/color.dart';
+import 'package:doctor_hunt/core/utils/color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextField extends StatefulWidget {
   CustomTextField({
@@ -24,14 +25,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   void initState() {
     super.initState();
-    // Initialize with the value passed from the parent
     _obscureText = widget.isPassword;
   }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 48,
+      height: 48.h,
       child: TextFormField(
         obscureText: _obscureText,
         controller: widget.controller,
@@ -58,9 +58,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
           hintText: widget.hintText,
           contentPadding: EdgeInsets.fromLTRB(12.0, 14.0, 12.0, 14.0),
 
-          hintStyle: const TextStyle(
+          hintStyle: TextStyle(
             color: AppColor.blue,
-            fontSize: 16,
+            fontSize: 16.sp,
             fontWeight: FontWeight.w300,
           ),
         ),

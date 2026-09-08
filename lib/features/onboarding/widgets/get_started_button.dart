@@ -1,3 +1,4 @@
+import 'package:doctor_hunt/core/utils/color.dart';
 import 'package:flutter/material.dart';
 
 class GetStartedButton extends StatelessWidget {
@@ -5,18 +6,24 @@ class GetStartedButton extends StatelessWidget {
     super.key,
     this.title = 'Get Started',
     required this.onTap,
+
+    this.fontSize,
   });
   final String title;
   final VoidCallback onTap;
+
+  final double? fontSize;
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 295,
-        height: 54,
+        width: screenWidth * 0.8,
+        height: screenHeight * 0.065,
         decoration: BoxDecoration(
-          color: Color(0xFF0EBE7F),
+          color: AppColor.green,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Center(
@@ -24,7 +31,7 @@ class GetStartedButton extends StatelessWidget {
             title,
             style: TextStyle(
               fontWeight: FontWeight.w500,
-              fontSize: 18,
+              fontSize: fontSize ?? screenWidth * 0.048,
               color: Colors.white,
             ),
           ),

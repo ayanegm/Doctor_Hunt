@@ -1,9 +1,9 @@
-import 'package:doctor_hunt/constants/color.dart';
-import 'package:doctor_hunt/features/login/login_page.dart';
+import 'package:doctor_hunt/core/utils/color.dart';
+import 'package:doctor_hunt/features/auth/presentation/screens/login_page.dart';
 import 'package:doctor_hunt/widgets/custom_text_field.dart';
-import 'package:doctor_hunt/widgets/description_onboarding_widget.dart';
-import 'package:doctor_hunt/widgets/get_started_button.dart';
-import 'package:doctor_hunt/widgets/registeration_widges_type.dart';
+import 'package:doctor_hunt/features/onboarding/widgets/description_text_widget.dart';
+import 'package:doctor_hunt/features/onboarding/widgets/get_started_button.dart';
+import 'package:doctor_hunt/features/auth/presentation/widgets/registeration_widges_type.dart';
 import 'package:doctor_hunt/widgets/title_onboarding_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +16,8 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -50,7 +52,7 @@ class SignupScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 15),
 
-                      DescriptionOnboardingWidget(
+                      DescriptionTextWidget(
                         description:
                             'You can search c ourse, apply course and find scholarship for abroad studies',
                       ),

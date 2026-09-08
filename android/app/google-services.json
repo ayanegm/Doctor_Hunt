@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "532961649364",
+    "project_id": "doctor-hunt-d700f",
+    "storage_bucket": "doctor-hunt-d700f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:532961649364:android:40e9fdec4fd097bf851141",
+        "android_client_info": {
+          "package_name": "com.example.doctor_hunt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJhnjF8QY4mbuARsTyDa_s4LM6fOCHwjU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

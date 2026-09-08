@@ -1,7 +1,7 @@
 import 'package:doctor_hunt/features/onboarding/onboarding_page_03.dart';
-import 'package:doctor_hunt/widgets/description_onboarding_widget.dart';
-import 'package:doctor_hunt/widgets/get_started_button.dart';
-import 'package:doctor_hunt/widgets/skip_button.dart';
+import 'package:doctor_hunt/features/onboarding/widgets/description_text_widget.dart';
+import 'package:doctor_hunt/features/onboarding/widgets/get_started_button.dart';
+import 'package:doctor_hunt/features/onboarding/widgets/skip_button.dart';
 import 'package:doctor_hunt/widgets/title_onboarding_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +10,8 @@ class OnboardingPage02 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -58,7 +60,7 @@ class OnboardingPage02 extends StatelessWidget {
                       fontSize: 28,
                     ),
                     SizedBox(height: 11),
-                    DescriptionOnboardingWidget(
+                    DescriptionTextWidget(
                       description:
                           'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of it over 2000 years old.',
                     ),
@@ -76,7 +78,7 @@ class OnboardingPage02 extends StatelessWidget {
                       },
                     ),
                     SizedBox(height: 14),
-                    SkipButton(),
+                    SkipButton(fontSize: screenWidth * 0.038),
                   ],
                 ),
               ),
