@@ -1,9 +1,10 @@
-import 'package:doctor_hunt/custom_scaffold.dart';
+import 'package:doctor_hunt/core/utils/app_strings.dart';
+import 'package:doctor_hunt/core/utils/text_styles.dart';
+import 'package:doctor_hunt/widgets/custom_scaffold.dart';
 import 'package:doctor_hunt/features/onboarding/onboarding_page_02.dart';
 import 'package:doctor_hunt/features/onboarding/widgets/description_text_widget.dart';
 import 'package:doctor_hunt/features/onboarding/widgets/get_started_button.dart';
 import 'package:doctor_hunt/features/onboarding/widgets/skip_button.dart';
-import 'package:doctor_hunt/widgets/title_onboarding_widget.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingPage01 extends StatelessWidget {
@@ -47,9 +48,9 @@ class OnboardingPage01 extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
             child: Column(
               children: [
-                TitleOnboardingWidget(
-                  title: 'Find Trusted Doctors',
-                  fontSize: screenWidth * 0.075,
+                Text(
+                  AppStrings.onBoarding1Title,
+                  style: TextStyles.onBoardingTitle,
                 ),
                 SizedBox(height: screenHeight * 0.015),
                 DescriptionTextWidget(

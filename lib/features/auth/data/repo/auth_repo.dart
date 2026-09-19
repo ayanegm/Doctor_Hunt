@@ -1,5 +1,6 @@
-import 'package:doctor_hunt/features/auth/data/auth_web_services.dart';
-import 'package:doctor_hunt/features/auth/data/models/user_model.dart';
+import 'package:doctor_hunt/core/models/user_type_enum.dart';
+import 'package:doctor_hunt/features/auth/data/service/auth_services.dart';
+import 'package:doctor_hunt/core/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRepository {
@@ -9,7 +10,7 @@ class AuthRepository {
     required String email,
     required String password,
     required String name,
-    required String userType,
+    required UserType userType,
   }) async {
     UserCredential credential = await _authWebServices.createUserWithEmail(
       email: email,
@@ -25,7 +26,7 @@ class AuthRepository {
     await _authWebServices.saveUserData(
       uid: uid,
       userData: userModel.toJson(),
-      userType: userType,
+      userType: userType.nameValue,
     );
     return userModel;
   }
@@ -46,5 +47,13 @@ class AuthRepository {
       throw Exception("User data not found in database");
     }
     return UserModel.fromJson(userData);
+  }
+
+  Future<void> logout() async {
+    try {
+      await _authWebServices.logout();
+    } catch (e) {
+      throw Exception('Failed to logout $e');
+    }
   }
 }

@@ -12,4 +12,11 @@ abstract class AppRoutes {
   static const String doctorAppointmentScreen01 = '/DoctorAppointmentScreen01';
   static const String doctorAppointmentScreen02 = "/doctorAppointmentScreen02";
   static const String chooseRolePage = "/chooseRolePage";
+  static const String doctorListPage = "/DoctorListPage";
+  static const String editDoctorScreen = '/EditDoctorScreen';
+  static const String createDoctorScreen = '/CreateDoctorScreen';
+  static const String doctorDetailsPage = '/DoctorDetailsPage';
+  static const String editAdminProfileScreen = '/EditAdminProfileScreen';
+  static const String favoritePage = '/favorites';
+  static const String adminSettingPage = '/adminSettingPage';
 }

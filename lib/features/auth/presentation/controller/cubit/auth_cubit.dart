@@ -1,15 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:doctor_hunt/features/auth/data/auth_repo.dart';
-import 'package:doctor_hunt/features/auth/data/models/user_model.dart';
+import 'package:doctor_hunt/core/models/user_type_enum.dart';
+import 'package:doctor_hunt/features/auth/data/repo/auth_repo.dart';
+import 'package:doctor_hunt/core/models/user_model.dart';
 import 'package:doctor_hunt/features/auth/presentation/controller/cubit/auth_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
   final AuthRepository _authRepository;
   AuthCubit(this._authRepository) : super(AuthInitialState());
   UserModel? currentUser;
@@ -18,7 +16,7 @@ class AuthCubit extends Cubit<AuthState> {
     required String email,
     required String password,
     required String name,
-    required String userType,
+    required UserType userType,
   }) async {
     emit(AuthLoadingState());
     try {
@@ -56,6 +54,16 @@ class AuthCubit extends Cubit<AuthState> {
       print(e.message);
 
       emit(AuthFailureState(errorMessage: e.message ?? "Login failed"));
+    } catch (e) {
+      emit(AuthFailureState(errorMessage: e.toString()));
+    }
+  }
+
+  Future<void> userLogout() async {
+    emit(AuthLoadingState());
+    try {
+      await _authRepository.logout();
+      emit(AuthLoggedOutSuccessState());
     } catch (e) {
       emit(AuthFailureState(errorMessage: e.toString()));
     }

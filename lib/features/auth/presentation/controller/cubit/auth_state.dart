@@ -1,4 +1,4 @@
-import 'package:doctor_hunt/features/auth/data/models/user_model.dart';
+import 'package:doctor_hunt/core/models/user_model.dart';
 
 abstract class AuthState {}
 
@@ -12,6 +12,8 @@ class AuthUserLoaded extends AuthState {
   final UserModel userModel;
   AuthUserLoaded({required this.userModel});
 }
+
+class AuthLoggedOutSuccessState extends AuthState {}
 
 class AuthFailureState extends AuthState {
   final String errorMessage;

@@ -1,7 +1,9 @@
+import 'package:doctor_hunt/core/models/user_type_enum.dart';
+
 class UserModel {
   final String name;
   final String email;
-  final String userType;
+  final UserType userType;
   final String uid;
   UserModel({
     required this.uid,
@@ -12,7 +14,7 @@ class UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      userType: json['userType'] ?? '',
+      userType: UserType.fromString(json['userType'] ?? ''),
       name: json['name'] ?? '',
       email: json['email'] ?? '',
       uid: json['uid'],
@@ -20,6 +22,11 @@ class UserModel {
   }
 
   Map<String, dynamic> toJson() {
-    return {'name': name, 'email': email, 'uid': uid, 'userType': userType};
+    return {
+      'name': name,
+      'email': email,
+      'uid': uid,
+      'userType': userType.nameValue,
+    };
   }
 }

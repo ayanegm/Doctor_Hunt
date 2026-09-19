@@ -1,7 +1,7 @@
-import 'dart:nativewrappers/_internal/vm/lib/ffi_native_type_patch.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:doctor_hunt/features/auth/data/models/user_model.dart';
+import 'package:doctor_hunt/cache/cache_helper.dart';
+import 'package:doctor_hunt/core/models/user_model.dart';
+import 'package:doctor_hunt/core/models/user_type_enum.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthFirebaseServices {
@@ -39,11 +39,12 @@ class AuthFirebaseServices {
   }
 
   Future<Map<String, dynamic>?> getUserModel({required String uid}) async {
-    DocumentSnapshot doc = await _firestore
-        .collection('patients')
-        .doc(uid)
-        .get();
-    if (!doc.exists) {
+    String roleString = CacheData.getData(key: 'userData') ?? '';
+    UserType userRole = UserType.fromString(roleString);
+    DocumentSnapshot? doc;
+    if (userRole == UserType.patient) {
+      doc = await _firestore.collection('patients').doc(uid).get();
+    } else {
       doc = await _firestore.collection('admins').doc(uid).get();
     }
     if (doc.exists && doc.data() != null) {
@@ -51,5 +52,9 @@ class AuthFirebaseServices {
     } else {
       return null;
     }
+  }
+
+  Future<void> logout() async {
+    await _auth.signOut();
   }
 }

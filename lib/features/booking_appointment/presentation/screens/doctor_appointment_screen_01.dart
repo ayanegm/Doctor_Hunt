@@ -1,4 +1,4 @@
-import 'package:doctor_hunt/custom_scaffold.dart';
+import 'package:doctor_hunt/widgets/custom_scaffold.dart';
 import 'package:doctor_hunt/features/doctor_details/presentation/widgets/doctor_card.dart';
 import 'package:doctor_hunt/features/onboarding/widgets/get_started_button.dart';
 import 'package:doctor_hunt/widgets/custom_text_field.dart';

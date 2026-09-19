@@ -1,8 +1,9 @@
-import 'package:doctor_hunt/features/auth/presentation/screens/login_page.dart';
+import 'package:doctor_hunt/core/utils/app_strings.dart';
+import 'package:doctor_hunt/core/utils/text_styles.dart';
+import 'package:doctor_hunt/features/auth/presentation/screens/login_screen.dart';
 import 'package:doctor_hunt/features/onboarding/widgets/description_text_widget.dart';
 import 'package:doctor_hunt/features/onboarding/widgets/get_started_button.dart';
 import 'package:doctor_hunt/features/onboarding/widgets/skip_button.dart';
-import 'package:doctor_hunt/widgets/title_onboarding_widget.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingPage03 extends StatelessWidget {
@@ -55,7 +56,10 @@ class OnboardingPage03 extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 43.0),
             child: Column(
               children: [
-                TitleOnboardingWidget(title: 'Easy Appointments', fontSize: 28),
+                Text(
+                  AppStrings.onBoarding3Title,
+                  style: TextStyles.onBoardingTitle,
+                ),
                 SizedBox(height: 11),
                 DescriptionTextWidget(
                   description:

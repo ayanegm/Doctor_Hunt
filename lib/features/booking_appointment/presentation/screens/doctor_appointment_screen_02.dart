@@ -1,5 +1,5 @@
 import 'package:doctor_hunt/core/utils/color.dart';
-import 'package:doctor_hunt/custom_scaffold.dart';
+import 'package:doctor_hunt/widgets/custom_scaffold.dart';
 import 'package:doctor_hunt/features/booking_appointment/presentation/widgets/appointment_success.dart';
 import 'package:doctor_hunt/features/booking_appointment/presentation/widgets/calender_widget.dart';
 import 'package:doctor_hunt/features/booking_appointment/presentation/widgets/time_slots_widget.dart';

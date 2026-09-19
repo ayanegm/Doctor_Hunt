@@ -26,7 +26,7 @@ class RegisterationWidgesType extends StatelessWidget {
               color: Colors.grey.withValues(alpha: 0.5),
               spreadRadius: 3,
               blurRadius: 7,
-              offset: Offset(0, 3), // changes position of shadow
+              offset: Offset(0, 3),
             ),
           ],
         ),

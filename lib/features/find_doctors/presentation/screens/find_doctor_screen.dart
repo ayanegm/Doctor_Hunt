@@ -1,8 +1,7 @@
-import 'package:doctor_hunt/features/home/presentation/widgets/search_bar_widget.dart';
-import 'package:doctor_hunt/widgets/custom_bottom_nav_bar.dart';
+import 'package:doctor_hunt/widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:doctor_hunt/core/utils/color.dart';
-import 'package:doctor_hunt/custom_scaffold.dart';
+import 'package:doctor_hunt/widgets/custom_scaffold.dart';
 import 'package:doctor_hunt/features/find_doctors/presentation/widgets/find_doctor_card.dart';
 
 class FindDoctorPage extends StatefulWidget {
@@ -13,7 +12,7 @@ class FindDoctorPage extends StatefulWidget {
 }
 
 class _FindDoctorPageState extends State<FindDoctorPage> {
-  int _currentIndex = 1;
+  final int _currentIndex = 1;
 
   final TextEditingController text = TextEditingController();
 
@@ -23,14 +22,7 @@ class _FindDoctorPageState extends State<FindDoctorPage> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return CustomScaffold(
-      bottomNavigationBar: CustomBottomNavBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-      ),
+      
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
