@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:doctor_hunt/core/models/user_type_enum.dart';
 import 'package:doctor_hunt/core/services/cloudinary_service.dart';
-import 'package:doctor_hunt/features/auth/data/service/auth_services.dart';
 import 'package:doctor_hunt/core/models/user_model.dart';
+import 'package:doctor_hunt/features/auth/data/service/auth_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRepository {

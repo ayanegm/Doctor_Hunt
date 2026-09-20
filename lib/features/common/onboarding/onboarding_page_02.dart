@@ -1,9 +1,9 @@
 import 'package:doctor_hunt/core/utils/app_strings.dart';
 import 'package:doctor_hunt/core/utils/text_styles.dart';
-import 'package:doctor_hunt/features/onboarding/onboarding_page_03.dart';
-import 'package:doctor_hunt/features/onboarding/widgets/description_text_widget.dart';
-import 'package:doctor_hunt/features/onboarding/widgets/get_started_button.dart';
-import 'package:doctor_hunt/features/onboarding/widgets/skip_button.dart';
+import 'package:doctor_hunt/features/common/onboarding/onboarding_page_03.dart';
+import 'package:doctor_hunt/features/common/onboarding/widgets/description_text_widget.dart';
+import 'package:doctor_hunt/features/common/onboarding/widgets/get_started_button.dart';
+import 'package:doctor_hunt/features/common/onboarding/widgets/skip_button.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingPage02 extends StatelessWidget {

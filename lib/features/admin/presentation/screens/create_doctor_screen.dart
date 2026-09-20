@@ -7,7 +7,7 @@ import 'package:doctor_hunt/features/admin/data/repo/admin_repository.dart';
 import 'package:doctor_hunt/features/admin/data/service/admin_service.dart';
 import 'package:doctor_hunt/features/admin/presentation/controllers/cubit/admin_cubit.dart';
 import 'package:doctor_hunt/features/admin/presentation/widgets/doctor_input_field_container.dart';
-import 'package:doctor_hunt/features/onboarding/widgets/get_started_button.dart';
+import 'package:doctor_hunt/features/common/onboarding/widgets/get_started_button.dart';
 import 'package:doctor_hunt/widgets/admin_custom_scaffold.dart';
 import 'package:doctor_hunt/widgets/custom_text_field.dart';
 import 'package:doctor_hunt/widgets/department_title_widget.dart';
@@ -15,6 +15,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CreateDoctorScreen extends StatefulWidget {
@@ -68,14 +69,15 @@ class _CreateDoctorScreenState extends State<CreateDoctorScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          DoctorCubit(AdminRepository(adminService: AdminService())),
+          AdminCubit(AdminRepository(adminService: AdminService())),
       child: AdminCustomScaffold(
-        body: BlocConsumer<DoctorCubit, AdminState>(
+        body: BlocConsumer<AdminCubit, AdminState>(
           listener: (context, state) {
             if (state is AdminSuccessState) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text('Doctor created successfully')),
               );
+              context.pop();
             } else if (state is AdminFailureState) {
               SnackBar(content: Text(state.errorMessage));
             }
@@ -178,7 +180,7 @@ class _CreateDoctorScreenState extends State<CreateDoctorScreen> {
                       )
                     : GetStartedButton(
                         onTap: () {
-                          context.read<DoctorCubit>().createNewDoctor(
+                          context.read<AdminCubit>().createNewDoctor(
                             name: doctorName.text,
                             speciality: selectedSpecialty,
                             imageFile: _selectedImage,

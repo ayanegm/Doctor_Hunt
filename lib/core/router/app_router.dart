@@ -2,24 +2,24 @@ import 'package:doctor_hunt/core/router/app_routes.dart';
 import 'package:doctor_hunt/core/models/user_model.dart';
 import 'package:doctor_hunt/features/admin/presentation/screens/admin_setting_page.dart';
 import 'package:doctor_hunt/features/admin/presentation/widgets/admin_bottom_nav_bar.dart';
-import 'package:doctor_hunt/features/doctors/data/models/doctor_model.dart';
+import 'package:doctor_hunt/features/auth/presentation/screens/login_screen.dart';
+import 'package:doctor_hunt/features/choose_role/presentation/screens/choose_role_page.dart';
 import 'package:doctor_hunt/features/admin/presentation/screens/create_doctor_screen.dart';
 import 'package:doctor_hunt/features/admin/presentation/screens/doctor_details_page.dart';
 import 'package:doctor_hunt/features/admin/presentation/screens/doctor_list_screen.dart';
 import 'package:doctor_hunt/features/admin/presentation/screens/edit_admin_profile_screen.dart';
 import 'package:doctor_hunt/features/admin/presentation/screens/edit_doctor_screen.dart';
-import 'package:doctor_hunt/features/auth/presentation/screens/login_screen.dart';
-import 'package:doctor_hunt/features/choose_role/presentation/screens/choose_role_page.dart';
-import 'package:doctor_hunt/features/auth/presentation/screens/signup_screen.dart';
+import 'package:doctor_hunt/features/common/auth/presentation/screens/signup_screen.dart';
 import 'package:doctor_hunt/features/booking_appointment/presentation/screens/doctor_appointment_screen_01.dart';
 import 'package:doctor_hunt/features/booking_appointment/presentation/screens/doctor_appointment_screen_02.dart';
 import 'package:doctor_hunt/features/doctor_details/presentation/screens/doctor_details_screen.dart';
+import 'package:doctor_hunt/features/doctors/data/models/doctor_model.dart';
 import 'package:doctor_hunt/features/favorite_apge.dart';
 import 'package:doctor_hunt/features/find_doctors/presentation/screens/find_doctor_screen.dart';
+import 'package:doctor_hunt/features/common/onboarding/onboarding_page_01.dart';
+import 'package:doctor_hunt/features/common/onboarding/onboarding_page_02.dart';
+import 'package:doctor_hunt/features/common/onboarding/onboarding_page_03.dart';
 import 'package:doctor_hunt/features/home/presentation/screens/home_page.dart';
-import 'package:doctor_hunt/features/onboarding/onboarding_page_01.dart';
-import 'package:doctor_hunt/features/onboarding/onboarding_page_02.dart';
-import 'package:doctor_hunt/features/onboarding/onboarding_page_03.dart';
 import 'package:doctor_hunt/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -41,8 +41,7 @@ class AppRouter {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: AppRoutes
-                    .doctorListPage, // or whatever your admin main tab is
+                path: AppRoutes.doctorListPage,
                 builder: (context, state) => DoctorListPage(),
               ),
             ],
@@ -51,10 +50,7 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: AppRoutes.adminSettingPage,
-                builder: (context, state) {
-                  final userModel = state.extra as UserModel?;
-                  return AdminSettingPage(userModel: userModel!);
-                },
+                builder: (context, state) => AdminSettingPage(),
               ),
             ],
           ),
@@ -72,10 +68,7 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: AppRoutes.homePage,
-                builder: (context, state) {
-                  final userModel = state.extra as UserModel?;
-                  return HomePage(userModel: userModel);
-                },
+                builder: (context, state) => const HomePage(),
               ),
             ],
           ),
@@ -108,10 +101,7 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoutes.adminSettingPage,
-        builder: (context, state) {
-          final userModel = state.extra as UserModel?;
-          return AdminSettingPage(userModel: userModel!);
-        },
+        builder: (context, state) => AdminSettingPage(),
       ),
       GoRoute(
         path: AppRoutes.doctorDetailsPage,
@@ -139,10 +129,7 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoutes.homePage,
-        builder: (context, state) {
-          final userModel = state.extra as UserModel?;
-          return HomePage(userModel: userModel);
-        },
+        builder: (context, state) => const HomePage(),
       ),
       GoRoute(
         path: AppRoutes.onboarding01,

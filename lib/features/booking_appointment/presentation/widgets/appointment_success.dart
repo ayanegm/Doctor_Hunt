@@ -1,5 +1,5 @@
 import 'package:doctor_hunt/core/utils/color.dart';
-import 'package:doctor_hunt/features/onboarding/widgets/get_started_button.dart';
+import 'package:doctor_hunt/features/common/onboarding/widgets/get_started_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

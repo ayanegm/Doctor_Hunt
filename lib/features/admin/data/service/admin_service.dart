@@ -20,4 +20,8 @@ class AdminService {
         .doc(doctorModel.id)
         .update(doctorModel.toJson());
   }
+
+  Future<void> deleteDoctor(String uid) async {
+    await _firestore.collection('doctors').doc(uid).delete();
+  }
 }

@@ -1,15 +1,14 @@
 import 'dart:io';
-
 import 'package:doctor_hunt/core/services/cloudinary_service.dart';
 import 'package:doctor_hunt/core/utils/color.dart';
 import 'package:doctor_hunt/core/utils/text_styles.dart';
-import 'package:doctor_hunt/features/doctors/data/models/doctor_model.dart';
 import 'package:doctor_hunt/features/admin/data/repo/admin_repository.dart';
 import 'package:doctor_hunt/features/admin/data/service/admin_service.dart';
 import 'package:doctor_hunt/features/admin/presentation/controllers/cubit/admin_cubit.dart';
 import 'package:doctor_hunt/features/admin/presentation/widgets/clicked_text_widget.dart';
 import 'package:doctor_hunt/features/admin/presentation/widgets/doctor_input_field_container.dart';
-import 'package:doctor_hunt/features/onboarding/widgets/get_started_button.dart';
+import 'package:doctor_hunt/features/common/onboarding/widgets/get_started_button.dart';
+import 'package:doctor_hunt/features/doctors/data/models/doctor_model.dart';
 import 'package:doctor_hunt/widgets/admin_custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -68,13 +67,18 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          DoctorCubit(AdminRepository(adminService: AdminService())),
+          AdminCubit(AdminRepository(adminService: AdminService())),
       child: AdminCustomScaffold(
-        body: BlocConsumer<DoctorCubit, AdminState>(
+        body: BlocConsumer<AdminCubit, AdminState>(
           listener: (context, state) {
             if (state is AdminSuccessState) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Doctor updated successfully!')),
+              );
+              context.pop();
+            } else if (state is DoctorDeleteSuccess) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Doctor deleted successfully')),
               );
               context.pop();
             } else if (state is AdminFailureState) {
@@ -275,15 +279,21 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                         imageUrl: finalImageUrl,
                       );
 
-                      context.read<DoctorCubit>().updateDoctor(updateDoctor);
+                      context.read<AdminCubit>().updateDoctor(updateDoctor);
                     },
                     title: 'Save Changes',
                   ),
                   SizedBox(height: 22.h),
-                  ClickedTextWidget(
-                    onTap: () {},
-                    text: 'Delete Doctor',
-                    textColor: AppColor.red,
+                  Center(
+                    child: ClickedTextWidget(
+                      onTap: () {
+                        context.read<AdminCubit>().deleteDoctor(
+                          widget.doctorModel.id,
+                        );
+                      },
+                      text: 'Delete Doctor',
+                      textColor: AppColor.red,
+                    ),
                   ),
                 ],
               ),

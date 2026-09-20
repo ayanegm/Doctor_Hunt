@@ -13,6 +13,8 @@ final class AdminFailureState extends AdminState {
   AdminFailureState({required this.errorMessage});
 }
 
+class DoctorDeleteSuccess extends AdminState {}
+
 final class DoctorsSuccessState extends AdminState {
   final List<DoctorModel> doctorsList;
 

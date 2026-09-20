@@ -1,16 +1,19 @@
+import 'dart:convert';
+
+import 'package:doctor_hunt/cache/cache_helper.dart';
 import 'package:doctor_hunt/core/utils/color.dart';
 import 'package:doctor_hunt/features/admin/data/repo/admin_repository.dart';
 import 'package:doctor_hunt/features/admin/data/service/admin_service.dart';
 import 'package:doctor_hunt/features/doctors/presentation/cubit/doctors_cubit.dart';
 import 'package:doctor_hunt/features/doctors/presentation/cubit/doctors_state.dart';
-import 'package:doctor_hunt/widgets/custom_scaffold.dart';
-import 'package:doctor_hunt/core/models/user_model.dart';
 import 'package:doctor_hunt/features/home/data/models/category_model.dart';
 import 'package:doctor_hunt/features/home/presentation/widgets/category_card.dart';
-import 'package:doctor_hunt/widgets/department_title_widget.dart';
 import 'package:doctor_hunt/features/home/presentation/widgets/doctor_card_widget.dart';
 import 'package:doctor_hunt/features/home/presentation/widgets/feature_doctor_card.dart';
 import 'package:doctor_hunt/features/home/presentation/widgets/live_doctor_video_widget.dart';
+import 'package:doctor_hunt/widgets/custom_scaffold.dart';
+import 'package:doctor_hunt/core/models/user_model.dart';
+import 'package:doctor_hunt/widgets/department_title_widget.dart';
 import 'package:doctor_hunt/widgets/search_bar_widget.dart';
 import 'package:doctor_hunt/generated/assets.dart';
 import 'package:doctor_hunt/widgets/user_avatar_display.dart';
@@ -18,8 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, this.userModel});
-  final UserModel? userModel;
+  const HomePage({super.key});
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -38,7 +40,14 @@ class _HomePageState extends State<HomePage> {
     final TextEditingController searchText = TextEditingController();
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-
+    final String? userJsonString = CacheData.getData(key: 'cached_user');
+    if (userJsonString == null) {
+      return const Scaffold(
+        body: Center(child: Text('No user data found. Please log in again.')),
+      );
+    }
+    final Map<String, dynamic> userMap = jsonDecode(userJsonString);
+    final UserModel userModel = UserModel.fromJson(userMap);
     return BlocProvider(
       create: (context) =>
           DoctorsCubit(AdminRepository(adminService: AdminService()))
@@ -69,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             SizedBox(height: screenHeight * 0.014),
                             Text(
-                              'Hi ${widget.userModel!.name}!',
+                              'Hi ${userModel.name}!',
                               style: TextStyle(
                                 color: AppColor.white,
                                 fontWeight: FontWeight.w400,
@@ -88,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                         UserAvatarDisplay(
-                          imageUrl: widget.userModel?.imageUrl,
+                          imageUrl: userModel.imageUrl,
                           height: screenHeight * 0.073,
                           width: screenWidth * 0.16,
                         ),

@@ -2,14 +2,17 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctor_hunt/core/services/cloudinary_service.dart';
-import 'package:doctor_hunt/features/doctors/data/models/doctor_model.dart';
 import 'package:doctor_hunt/features/admin/data/service/admin_service.dart';
+import 'package:doctor_hunt/features/doctors/data/models/doctor_model.dart';
 
 class AdminRepository {
   final AdminService _adminService;
 
   AdminRepository({required AdminService adminService})
     : _adminService = adminService;
+  //   final AdminService _adminService;
+
+  // AdminRepository(this._adminService);
   Future<void> createDoctor({
     required String name,
     required String speciality,
@@ -38,5 +41,13 @@ class AdminRepository {
 
   Future<void> updateDoctor(DoctorModel doctorModel) async {
     await _adminService.updateDoctor(doctorModel);
+  }
+
+  Future<void> deleteDoctor(String uid) async {
+    try {
+      await _adminService.deleteDoctor(uid);
+    } catch (e) {
+      throw Exception('Failed to delete doctor: $e');
+    }
   }
 }

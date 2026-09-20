@@ -1,7 +1,7 @@
 import 'package:doctor_hunt/core/utils/color.dart';
-import 'package:doctor_hunt/features/doctors/data/models/doctor_model.dart';
 import 'package:doctor_hunt/features/admin/presentation/widgets/appointment_status.dart';
 import 'package:doctor_hunt/features/admin/presentation/widgets/appointment_status_container.dart';
+import 'package:doctor_hunt/features/doctors/data/models/doctor_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

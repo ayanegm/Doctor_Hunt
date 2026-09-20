@@ -8,29 +8,47 @@ class AdminDetailsRow extends StatelessWidget {
     required this.title,
     required this.value,
     this.widget,
-    required this.imagePath,
+    this.adminPhoto,
+    this.isSettingsRow = false,
   });
+
   final String title;
   final String value;
   final Widget? widget;
-  final String imagePath;
+  final String? adminPhoto;
+  final bool isSettingsRow;
 
   @override
   Widget build(BuildContext context) {
-    // Check if the imagePath is a network URL or a local asset
+    bool hasAdminPhoto = adminPhoto != null && adminPhoto!.isNotEmpty;
     bool isNetworkImage =
-        imagePath.startsWith('http://') || imagePath.startsWith('https://');
-    bool hasImage = imagePath.isNotEmpty;
+        hasAdminPhoto &&
+        (adminPhoto!.startsWith('http://') ||
+            adminPhoto!.startsWith('https://'));
 
     return Container(
       color: Colors.white,
-      height: 56.h,
+      padding: EdgeInsets.symmetric(vertical: 8.h),
+      constraints: BoxConstraints(minHeight: 56.h),
       width: double.infinity,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Handle image rendering dynamically based on path type
-          if (!hasImage)
+          if (isSettingsRow)
+            Container(
+              height: 35.h,
+              width: 40.w,
+              decoration: BoxDecoration(
+                color: Colors.grey[100],
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                _getSettingsIcon(title),
+                size: 18.r,
+                color: AppColor.blue,
+              ),
+            )
+          else if (!hasAdminPhoto)
             Container(
               height: 35.h,
               width: 40.w,
@@ -44,7 +62,7 @@ class AdminDetailsRow extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8.r),
               child: Image.network(
-                imagePath,
+                adminPhoto!,
                 height: 35.h,
                 width: 40.w,
                 fit: BoxFit.cover,
@@ -60,41 +78,55 @@ class AdminDetailsRow extends StatelessWidget {
               ),
             )
           else
-            Image.asset(
-              imagePath,
+            SizedBox(
               height: 35.h,
               width: 40.w,
-              fit: BoxFit.cover,
+              child: Image.asset(adminPhoto!, fit: BoxFit.contain),
             ),
 
           SizedBox(width: 12.w),
 
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14.sp,
-                  color: Colors.black,
+          // Text Section
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14.sp,
+                    color: Colors.black,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-              SizedBox(height: 2.h),
-              Text(
-                value,
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 12.sp,
-                  color: AppColor.blue,
+                SizedBox(height: 2.h),
+                Text(
+                  value,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12.sp,
+                    color: AppColor.blue,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          Spacer(),
-          if (widget != null) widget!,
+
+          if (widget != null) ...[SizedBox(width: 8.w), widget!],
         ],
       ),
     );
+  }
+
+  IconData _getSettingsIcon(String title) {
+    if (title.contains('Profile')) return Icons.person_outline;
+    if (title.contains('Password')) return Icons.lock_outline;
+    if (title.contains('Notification')) return Icons.notifications_outlined;
+    return Icons.info_outline;
   }
 }

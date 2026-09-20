@@ -1,76 +1,84 @@
 import 'package:doctor_hunt/core/utils/app_strings.dart';
 import 'package:doctor_hunt/core/utils/text_styles.dart';
-import 'package:doctor_hunt/widgets/custom_scaffold.dart';
-import 'package:doctor_hunt/features/onboarding/onboarding_page_02.dart';
-import 'package:doctor_hunt/features/onboarding/widgets/description_text_widget.dart';
-import 'package:doctor_hunt/features/onboarding/widgets/get_started_button.dart';
-import 'package:doctor_hunt/features/onboarding/widgets/skip_button.dart';
+import 'package:doctor_hunt/features/auth/presentation/screens/login_screen.dart';
+import 'package:doctor_hunt/features/common/onboarding/widgets/description_text_widget.dart';
+import 'package:doctor_hunt/features/common/onboarding/widgets/get_started_button.dart';
+import 'package:doctor_hunt/features/common/onboarding/widgets/skip_button.dart';
 import 'package:flutter/material.dart';
 
-class OnboardingPage01 extends StatelessWidget {
-  const OnboardingPage01({super.key});
+class OnboardingPage03 extends StatelessWidget {
+  const OnboardingPage03({super.key});
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    return CustomScaffold(
+    return Scaffold(
       body: Column(
         children: [
           SizedBox(
-            height: screenHeight * 0.55,
-            width: screenWidth,
+            height: 447,
+            width: 460,
             child: Stack(
               children: [
                 Positioned(
-                  top: -screenHeight * 0.024,
-                  left: -screenWidth * 0.277,
+                  top: -20,
+                  left: -104,
                   child: Image.asset(
                     'assets/images/Ellipse 153.png',
-                    height: screenWidth * 0.912,
-                    width: screenWidth * 0.912,
+                    height: 342,
+                    width: 342,
                   ),
                 ),
                 Positioned(
-                  top: screenHeight * 0.112,
-                  left: screenWidth * 0.053,
+                  top: 91,
+                  left: 20,
                   child: Image.asset(
-                    'assets/images/Ellipse 154.png',
-                    height: screenWidth * 0.89,
-                    width: screenWidth * 0.89,
+                    'assets/images/Ellipse 154 (2).png',
+                    height: 336,
+                    width: 336,
+                  ),
+                ),
+                Positioned(
+                  top: 641,
+                  left: 212,
+                  child: Image.asset(
+                    'assets/images/bg.png',
+                    height: 216,
+                    width: 216,
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: screenHeight * 0.04),
+          SizedBox(height: 85),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+            padding: const EdgeInsets.symmetric(horizontal: 43.0),
             child: Column(
               children: [
                 Text(
-                  AppStrings.onBoarding1Title,
+                  AppStrings.onBoarding3Title,
                   style: TextStyles.onBoardingTitle,
                 ),
-                SizedBox(height: screenHeight * 0.015),
+                SizedBox(height: 11),
                 DescriptionTextWidget(
                   description:
                       'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of it over 2000 years old.',
                 ),
-                SizedBox(height: screenHeight * 0.04),
+                SizedBox(height: 52),
                 GetStartedButton(
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return OnboardingPage02();
+                          return LoginPage();
                         },
                       ),
                     );
                   },
                 ),
-                SizedBox(height: screenHeight * 0.02),
+                SizedBox(height: 14),
                 SkipButton(fontSize: screenWidth * 0.038),
               ],
             ),

@@ -2,15 +2,15 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:doctor_hunt/features/doctors/data/models/doctor_model.dart';
 import 'package:doctor_hunt/features/admin/data/repo/admin_repository.dart';
+import 'package:doctor_hunt/features/doctors/data/models/doctor_model.dart';
 import 'package:meta/meta.dart';
 
 part 'admin_state.dart';
 
-class DoctorCubit extends Cubit<AdminState> {
+class AdminCubit extends Cubit<AdminState> {
   final AdminRepository _adminRepository;
-  DoctorCubit(this._adminRepository) : super(AdminInitialState());
+  AdminCubit(this._adminRepository) : super(AdminInitialState());
   Future<void> createNewDoctor({
     required String name,
     required String speciality,
@@ -24,6 +24,7 @@ class DoctorCubit extends Cubit<AdminState> {
         speciality: speciality,
       );
       emit(AdminSuccessState());
+      getAllDoctors();
     } catch (e) {
       emit(AdminFailureState(errorMessage: e.toString()));
     }
@@ -48,6 +49,16 @@ class DoctorCubit extends Cubit<AdminState> {
       await _adminRepository.updateDoctor(doctorModel);
       emit(AdminSuccessState());
       getAllDoctors();
+    } catch (e) {
+      emit(AdminFailureState(errorMessage: e.toString()));
+    }
+  }
+
+  Future<void> deleteDoctor(String uid) async {
+    emit(AdminLoadingState());
+    try {
+      await _adminRepository.deleteDoctor(uid);
+      emit(DoctorDeleteSuccess());
     } catch (e) {
       emit(AdminFailureState(errorMessage: e.toString()));
     }

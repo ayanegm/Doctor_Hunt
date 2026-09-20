@@ -1,11 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doctor_hunt/cache/cache_helper.dart';
 import 'package:doctor_hunt/core/models/user_type_enum.dart';
 import 'package:doctor_hunt/features/auth/data/repo/auth_repo.dart';
-import 'package:doctor_hunt/core/models/user_model.dart';
 import 'package:doctor_hunt/features/auth/presentation/controller/cubit/auth_state.dart';
+import 'package:doctor_hunt/core/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +54,8 @@ class AuthCubit extends Cubit<AuthState> {
         email: email,
         password: password,
       );
-
+      String userJsonStirng = jsonEncode(currentUser!.toJson());
+      await CacheData.setData(key: 'cached_user', value: userJsonStirng);
       emit(AuthUserLoaded(userModel: currentUser!));
     } on FirebaseAuthException catch (e) {
       print(e.message);

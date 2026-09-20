@@ -1,5 +1,5 @@
-import 'package:doctor_hunt/widgets/custom_scaffold.dart';
 import 'package:doctor_hunt/features/doctor_details/presentation/widgets/doctor_card.dart';
+import 'package:doctor_hunt/widgets/custom_scaffold.dart';
 import 'package:doctor_hunt/features/find_doctors/presentation/widgets/find_doctor_card.dart';
 import 'package:flutter/material.dart';
 import 'package:doctor_hunt/generated/assets.dart';
