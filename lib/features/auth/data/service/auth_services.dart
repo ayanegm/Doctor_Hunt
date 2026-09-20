@@ -57,4 +57,8 @@ class AuthFirebaseServices {
   Future<void> logout() async {
     await _auth.signOut();
   }
+
+  Future<void> forgetPassword(String email) async {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  }
 }

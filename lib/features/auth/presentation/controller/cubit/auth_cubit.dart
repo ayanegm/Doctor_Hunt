@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctor_hunt/core/models/user_type_enum.dart';
@@ -17,6 +19,7 @@ class AuthCubit extends Cubit<AuthState> {
     required String password,
     required String name,
     required UserType userType,
+    File? imageFile,
   }) async {
     emit(AuthLoadingState());
     try {
@@ -25,6 +28,7 @@ class AuthCubit extends Cubit<AuthState> {
         password: password,
         name: name,
         userType: userType,
+        imageFile: imageFile,
       );
 
       emit(AuthSignedUp());
@@ -64,6 +68,22 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       await _authRepository.logout();
       emit(AuthLoggedOutSuccessState());
+    } catch (e) {
+      emit(AuthFailureState(errorMessage: e.toString()));
+    }
+  }
+
+  Future<void> ForgetPassword({required String email}) async {
+    emit(AuthLoadingState());
+    try {
+      _authRepository.forgetPassword(email: email);
+      emit(AuthForgotPasswordSuccessState());
+    } on FirebaseAuthException catch (e) {
+      emit(
+        AuthFailureState(
+          errorMessage: e.message ?? 'Failed to send reset password',
+        ),
+      );
     } catch (e) {
       emit(AuthFailureState(errorMessage: e.toString()));
     }

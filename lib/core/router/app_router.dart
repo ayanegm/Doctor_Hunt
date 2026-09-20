@@ -1,6 +1,7 @@
 import 'package:doctor_hunt/core/router/app_routes.dart';
 import 'package:doctor_hunt/core/models/user_model.dart';
 import 'package:doctor_hunt/features/admin/presentation/screens/admin_setting_page.dart';
+import 'package:doctor_hunt/features/admin/presentation/widgets/admin_bottom_nav_bar.dart';
 import 'package:doctor_hunt/features/doctors/data/models/doctor_model.dart';
 import 'package:doctor_hunt/features/admin/presentation/screens/create_doctor_screen.dart';
 import 'package:doctor_hunt/features/admin/presentation/screens/doctor_details_page.dart';
@@ -27,6 +28,38 @@ class AppRouter {
   static final GoRouter router = GoRouter(
     initialLocation: AppRoutes.login,
     routes: [
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return Scaffold(
+            body: navigationShell,
+            bottomNavigationBar: AdminBottomNavBar(
+              navigationShell: navigationShell,
+            ),
+          );
+        },
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes
+                    .doctorListPage, // or whatever your admin main tab is
+                builder: (context, state) => DoctorListPage(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.adminSettingPage,
+                builder: (context, state) {
+                  final userModel = state.extra as UserModel?;
+                  return AdminSettingPage(userModel: userModel!);
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return Scaffold(

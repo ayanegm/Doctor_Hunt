@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_single_quotes
 class Assets {
   Assets._();
-
+  static const String adminProfileIcon = "assets/images/Background.png";
   static const String rightBlur = "assets/images/bg.png";
 
   static const String leftBlur = "assets/images/Ellipse 142.png";

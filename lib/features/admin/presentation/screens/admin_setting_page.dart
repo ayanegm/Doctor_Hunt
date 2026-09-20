@@ -6,6 +6,7 @@ import 'package:doctor_hunt/features/admin/presentation/widgets/logout_button.da
 import 'package:doctor_hunt/features/admin/presentation/widgets/switch_button.dart';
 import 'package:doctor_hunt/features/auth/presentation/controller/cubit/auth_cubit.dart';
 import 'package:doctor_hunt/features/auth/presentation/controller/cubit/auth_state.dart';
+import 'package:doctor_hunt/generated/assets.dart';
 import 'package:doctor_hunt/widgets/admin_custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,41 +23,38 @@ class AdminSettingPage extends StatelessWidget {
         children: [
           AdminDetailsRow(
             title: userModel.name,
-            value: 'Cardiology',
-            imagePath: 'assets/images/Ellipse 153 (1).png',
+            value: userModel.email,
+            imagePath: userModel.imageUrl ?? '',
           ),
           SizedBox(height: 24.h),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
             color: Colors.white,
-            height: 300.h,
             child: Column(
               children: [
                 AdminDetailsRow(
-                  title: 'Speciality',
-                  value: 'Cardiology',
-                  imagePath: 'assets/images/Ellipse 153 (1).png',
+                  title: 'Admin Profile',
+                  value: 'Edit super admin details & permissions',
+                  imagePath: Assets.adminProfileIcon,
                 ),
                 SizedBox(height: 5.h),
                 AdminDetailsRow(
-                  title: 'Speciality',
-                  value: 'Cardiology',
-                  widget: SwitchButton(),
-                  imagePath: 'assets/images/Ellipse 153 (1).png',
+                  title: 'Change Password',
+                  value: 'Update master security credentials',
+                  imagePath: Assets.adminProfileIcon,
                 ),
                 SizedBox(height: 5.h),
                 AdminDetailsRow(
-                  title: 'Speciality',
-                  value: 'Cardiology',
-                  widget: SwitchButton(),
-                  imagePath: 'assets/images/Ellipse 153 (1).png',
+                  title: 'Notification Preferences',
+                  value: 'Clinical alerts & system broadcasts',
+
+                  imagePath: Assets.adminProfileIcon,
                 ),
                 SizedBox(height: 5.h),
                 AdminDetailsRow(
-                  title: 'Speciality',
-                  value: 'Cardiology',
-                  widget: SwitchButton(),
-                  imagePath: 'assets/images/Ellipse 153 (1).png',
+                  title: 'App Information',
+                  value: 'Build version ',
+                  imagePath: Assets.adminProfileIcon,
                 ),
               ],
             ),

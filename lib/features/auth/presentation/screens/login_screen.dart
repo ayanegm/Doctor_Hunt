@@ -4,6 +4,7 @@ import 'package:doctor_hunt/core/utils/app_strings.dart';
 import 'package:doctor_hunt/core/utils/color.dart';
 import 'package:doctor_hunt/core/utils/text_styles.dart';
 import 'package:doctor_hunt/dependancy_injection.dart';
+import 'package:doctor_hunt/features/admin/presentation/widgets/clicked_text_widget.dart';
 import 'package:doctor_hunt/generated/assets.dart';
 import 'package:doctor_hunt/widgets/custom_scaffold.dart';
 import 'package:doctor_hunt/features/auth/data/repo/auth_repo.dart';
@@ -128,7 +129,13 @@ class LoginPage extends StatelessWidget {
                                 },
                         ),
                         SizedBox(height: 19.h),
-
+                        ClickedTextWidget(
+                          text: 'Forget Password',
+                          onTap: () {
+                            _showForgotPasswordBottomSheet(context);
+                          },
+                          textColor: AppColor.green,
+                        ),
                         SizedBox(height: 40.h),
 
                         Row(
@@ -175,6 +182,112 @@ class LoginPage extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+
+  void _showForgotPasswordBottomSheet(BuildContext context) {
+    final TextEditingController emailController = TextEditingController();
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled:
+          true, // لكي يتفاعل مع ظهور لوحة المفاتيح (Keyboard) بشكل صحيح
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(24),
+                topRight: Radius.circular(24),
+              ),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Container(
+                    width: 40.w,
+                    height: 4..h,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20.h),
+
+                Text(
+                  'Forgot Password?',
+                  style: TextStyle(
+                    fontSize: 22.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(height: 8.h),
+
+                Text(
+                  'Enter your email address below and we will send you a link to reset your password.',
+                  style: TextStyle(fontSize: 14.sp, color: Colors.grey[600]),
+                ),
+                SizedBox(height: 24.h),
+
+                CustomTextField(
+                  controller: emailController,
+                  isPassword: false,
+                  hintText: 'Enter your email',
+                ),
+                SizedBox(height: 24.h),
+
+                SizedBox(
+                  width: double.infinity,
+                  height: 50.h,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColor.green,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    onPressed: () {
+                      final email = emailController.text.trim();
+                      if (email.isNotEmpty) {
+                        context.read<AuthCubit>().ForgetPassword(email: email);
+
+                        Navigator.pop(context);
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Password reset link sent to your email!',
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                    child: Text(
+                      'Send Reset Link',
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10.h),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

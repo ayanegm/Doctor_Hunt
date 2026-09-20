@@ -15,6 +15,8 @@ class AuthUserLoaded extends AuthState {
 
 class AuthLoggedOutSuccessState extends AuthState {}
 
+class AuthForgotPasswordSuccessState extends AuthState {}
+
 class AuthFailureState extends AuthState {
   final String errorMessage;
   AuthFailureState({required this.errorMessage});

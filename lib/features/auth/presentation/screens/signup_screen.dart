@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:doctor_hunt/core/models/user_type_enum.dart';
 import 'package:doctor_hunt/core/utils/app_strings.dart';
 import 'package:doctor_hunt/core/utils/color.dart';
@@ -5,6 +7,7 @@ import 'package:doctor_hunt/core/utils/text_styles.dart';
 import 'package:doctor_hunt/dependancy_injection.dart';
 import 'package:doctor_hunt/features/auth/presentation/screens/login_screen.dart';
 import 'package:doctor_hunt/generated/assets.dart';
+import 'package:doctor_hunt/helper_fucntions/image_helper.dart';
 import 'package:doctor_hunt/widgets/custom_scaffold.dart';
 import 'package:doctor_hunt/features/auth/data/repo/auth_repo.dart';
 import 'package:doctor_hunt/features/auth/data/service/auth_services.dart';
@@ -15,14 +18,31 @@ import 'package:doctor_hunt/widgets/custom_text_field.dart';
 import 'package:doctor_hunt/features/onboarding/widgets/description_text_widget.dart';
 import 'package:doctor_hunt/features/onboarding/widgets/get_started_button.dart';
 import 'package:doctor_hunt/features/auth/presentation/widgets/registeration_widges_type.dart';
+import 'package:doctor_hunt/widgets/custom_user_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SignupScreen extends StatelessWidget {
-  SignupScreen({super.key, this.userType});
-  final AuthControllers controller = AuthControllers();
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key, this.userType});
   final UserType? userType;
+
+  @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+  final AuthControllers controller = AuthControllers();
+  File? _selectedImage;
+
+  Future<void> _handleImagePick() async {
+    final image = await ImageHelper.pickImageFromGallery(context);
+    if (image != null) {
+      setState(() {
+        _selectedImage = image;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +55,6 @@ class SignupScreen extends StatelessWidget {
               MaterialPageRoute(builder: (context) => LoginPage()),
             );
           } else if (state is AuthFailureState) {
-            // Show error message
             ScaffoldMessenger.of(
               context,
             ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
@@ -49,7 +68,7 @@ class SignupScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 90.h),
+                    SizedBox(height: 30.h),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.0.w),
                       child: Column(
@@ -58,7 +77,7 @@ class SignupScreen extends StatelessWidget {
                             AppStrings.signUpTitle,
                             style: TextStyles.onBoardingTitle,
                           ),
-                          SizedBox(height: 15.h),
+                          SizedBox(height: 10.h),
                           DescriptionTextWidget(
                             description:
                                 'You can search course, apply course and find scholarship for abroad studies',
@@ -66,7 +85,10 @@ class SignupScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 50.h),
+                    CustomUserAvatar(
+                      selectedImageFile: _selectedImage,
+                      onTap: _handleImagePick,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -134,7 +156,8 @@ class SignupScreen extends StatelessWidget {
                                   email: controller.email.text.trim(),
                                   password: controller.password.text.trim(),
                                   name: controller.name.text.trim(),
-                                  userType: userType!,
+                                  userType: widget.userType!,
+                                  imageFile: _selectedImage,
                                 );
                               },
                             ),

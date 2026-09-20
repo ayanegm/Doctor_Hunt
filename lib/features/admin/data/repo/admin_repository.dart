@@ -19,9 +19,9 @@ class AdminRepository {
     String? imageUrl;
     if (imageFile != null) {
       imageUrl = await CloudinaryService.uploadImage(imageFile);
-      print('Cloudinary uploaded URL: $imageUrl'); // Add this line
+      print('Cloudinary uploaded URL: $imageUrl');
     } else {
-      print('ImageFile is NULL in repository!'); // Add this line
+      print('ImageFile is NULL in repository!');
     }
     DoctorModel doctorModel = DoctorModel(
       id: uniqueId,

@@ -5,7 +5,9 @@ class UserModel {
   final String email;
   final UserType userType;
   final String uid;
+  final String? imageUrl;
   UserModel({
+    this.imageUrl,
     required this.uid,
     required this.userType,
     required this.name,
@@ -18,6 +20,7 @@ class UserModel {
       name: json['name'] ?? '',
       email: json['email'] ?? '',
       uid: json['uid'],
+      imageUrl: json['imageUrl'],
     );
   }
 
@@ -27,6 +30,7 @@ class UserModel {
       'email': email,
       'uid': uid,
       'userType': userType.nameValue,
+      'imageUrl': imageUrl ?? '',
     };
   }
 }

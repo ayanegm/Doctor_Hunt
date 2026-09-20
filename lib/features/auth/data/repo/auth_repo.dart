@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:doctor_hunt/core/models/user_type_enum.dart';
+import 'package:doctor_hunt/core/services/cloudinary_service.dart';
 import 'package:doctor_hunt/features/auth/data/service/auth_services.dart';
 import 'package:doctor_hunt/core/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,17 +14,26 @@ class AuthRepository {
     required String password,
     required String name,
     required UserType userType,
+    File? imageFile,
   }) async {
     UserCredential credential = await _authWebServices.createUserWithEmail(
       email: email,
       password: password,
     );
     String uid = credential.user!.uid;
+    String? imageUrl;
+    if (imageFile != null) {
+      imageUrl = await CloudinaryService.uploadImage(imageFile);
+      print('Cloudinary uploaded URL: $imageUrl');
+    } else {
+      print('ImageFile is NULL in repository!');
+    }
     UserModel userModel = UserModel(
       uid: uid,
       userType: userType,
       name: name,
       email: email,
+      imageUrl: imageUrl,
     );
     await _authWebServices.saveUserData(
       uid: uid,
@@ -55,5 +67,9 @@ class AuthRepository {
     } catch (e) {
       throw Exception('Failed to logout $e');
     }
+  }
+
+  Future<void> forgetPassword({required String email}) async {
+    await _authWebServices.forgetPassword(email);
   }
 }

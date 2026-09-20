@@ -14,17 +14,63 @@ class AdminDetailsRow extends StatelessWidget {
   final String value;
   final Widget? widget;
   final String imagePath;
+
   @override
   Widget build(BuildContext context) {
+    // Check if the imagePath is a network URL or a local asset
+    bool isNetworkImage =
+        imagePath.startsWith('http://') || imagePath.startsWith('https://');
+    bool hasImage = imagePath.isNotEmpty;
+
     return Container(
       color: Colors.white,
       height: 56.h,
       width: double.infinity,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset(imagePath, height: 18.33.w, width: 18.33.w),
+          // Handle image rendering dynamically based on path type
+          if (!hasImage)
+            Container(
+              height: 35.h,
+              width: 40.w,
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                shape: BoxShape.circle,
+              ),
+              child: Icon(Icons.person, size: 20.r, color: Colors.grey),
+            )
+          else if (isNetworkImage)
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8.r),
+              child: Image.network(
+                imagePath,
+                height: 35.h,
+                width: 40.w,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => Container(
+                  height: 35.h,
+                  width: 40.w,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(Icons.person, size: 20.r, color: Colors.grey),
+                ),
+              ),
+            )
+          else
+            Image.asset(
+              imagePath,
+              height: 35.h,
+              width: 40.w,
+              fit: BoxFit.cover,
+            ),
+
           SizedBox(width: 12.w),
+
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 title,
@@ -39,9 +85,8 @@ class AdminDetailsRow extends StatelessWidget {
                 value,
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
-
                   fontSize: 12.sp,
-                  color: AppColor.grey,
+                  color: AppColor.blue,
                 ),
               ),
             ],

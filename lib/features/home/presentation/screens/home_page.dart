@@ -13,6 +13,7 @@ import 'package:doctor_hunt/features/home/presentation/widgets/feature_doctor_ca
 import 'package:doctor_hunt/features/home/presentation/widgets/live_doctor_video_widget.dart';
 import 'package:doctor_hunt/widgets/search_bar_widget.dart';
 import 'package:doctor_hunt/generated/assets.dart';
+import 'package:doctor_hunt/widgets/user_avatar_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -86,8 +87,8 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ],
                         ),
-                        Image.asset(
-                          Assets.HomecircleImage,
+                        UserAvatarDisplay(
+                          imageUrl: widget.userModel?.imageUrl,
                           height: screenHeight * 0.073,
                           width: screenWidth * 0.16,
                         ),
