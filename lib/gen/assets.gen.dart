@@ -18,6 +18,10 @@ class $AssetsImagesGen {
   AssetGenImage get backgroundShadow =>
       const AssetGenImage('assets/images/Background+Shadow.png');
 
+  /// File path: assets/images/Background.png
+  AssetGenImage get background =>
+      const AssetGenImage('assets/images/Background.png');
+
   /// File path: assets/images/Ellipse 142.png
   AssetGenImage get ellipse142 =>
       const AssetGenImage('assets/images/Ellipse 142.png');
@@ -94,6 +98,7 @@ class $AssetsImagesGen {
   /// List of all assets
   List<AssetGenImage> get values => [
     backgroundShadow,
+    background,
     ellipse142,
     ellipse1531,
     ellipse153,

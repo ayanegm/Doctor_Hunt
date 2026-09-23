@@ -1,5 +1,4 @@
 import 'package:doctor_hunt/core/models/user_type_enum.dart';
-import 'package:doctor_hunt/core/router/app_routes.dart';
 import 'package:doctor_hunt/core/utils/app_strings.dart';
 import 'package:doctor_hunt/core/utils/color.dart';
 import 'package:doctor_hunt/core/utils/text_styles.dart';
@@ -19,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:doctor_hunt/core/router/app_router.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -35,13 +35,10 @@ class LoginPage extends StatelessWidget {
               final userMdoel = state.userModel;
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 if (userMdoel.userType == UserType.admin) {
-                  context.go(
-                    AppRoutes.adminSettingPage,
-                    extra: state.userModel,
-                  );
+                  context.go('/adminSettingPage');
                   return;
                 }
-                context.go(AppRoutes.homePage, extra: state.userModel);
+                context.go('/homePage');
               });
             }
 

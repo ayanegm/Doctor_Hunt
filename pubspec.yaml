@@ -54,7 +54,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  go_router_builder: ^2.4.1
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -62,17 +62,13 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
   build_runner: ^2.4.13
-  flutter_gen_runner: ^5.8.0
-flutter_gen:
-  output: lib/gen/ # Optional (default: lib/gen/)
-  # line_length: 80 # Optional
+#  flutter_gen_runner: ^5.8.0
+#flutter_gen:
+#  output: lib/gen/ # Optional (default: lib/gen/)
+# line_length: 80 # Optional
 
-  # Optional
-  integrations:
-    image: true
-    flutter_svg: true
-    rive: true
-    lottie: true
+# Optional
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -111,9 +107,3 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
-
-flutter_assets:
-  assets_path: assets/images/
-  output_path: lib/generated/
-  filename: assets.dart
-  ignore_comments: true
